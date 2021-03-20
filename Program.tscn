@@ -1,0 +1,83 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Program.gd" type="Script" id=1]
+[ext_resource path="res://GeneratorGUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://FileMenu.gd" type="Script" id=3]
+
+[node name="Program" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveDialog" type="FileDialog" parent="."]
+margin_top = 24.0
+margin_right = 315.0
+margin_bottom = 154.0
+access = 1
+filters = PoolStringArray( "*.grammar ; A file with grammar data" )
+current_dir = "user://"
+current_path = "user://"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadDialog" type="FileDialog" parent="."]
+margin_top = 24.0
+margin_right = 216.0
+margin_bottom = 154.0
+window_title = "Open a File"
+mode = 0
+access = 1
+filters = PoolStringArray( "*.grammar ; A file with grammar data" )
+current_dir = "user://"
+current_path = "user://"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 20.0
+
+[node name="FileMenu" type="MenuButton" parent="VBoxContainer/HBoxContainer"]
+margin_right = 35.0
+margin_bottom = 20.0
+text = "File"
+items = [ "Save", null, 0, false, false, 0, 0, null, "", false, "Save As", null, 0, false, false, 1, 0, null, "", false, "Load", null, 0, false, false, 2, 0, null, "", false ]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GeneratorGUI" parent="VBoxContainer/MarginContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1024.0
+margin_bottom = 576.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+[connection signal="file_selected" from="SaveDialog" to="." method="_on_SaveDialog_file_selected"]
+[connection signal="file_selected" from="LoadDialog" to="." method="_on_LoadDialog_file_selected"]
+[connection signal="load_pressed" from="VBoxContainer/HBoxContainer/FileMenu" to="." method="_on_load_pressed"]
+[connection signal="save_as_pressed" from="VBoxContainer/HBoxContainer/FileMenu" to="." method="_on_save_as_pressed"]
+[connection signal="save_pressed" from="VBoxContainer/HBoxContainer/FileMenu" to="." method="_on_save_pressed"]
+[connection signal="load_pressed" from="VBoxContainer/MarginContainer/GeneratorGUI" to="." method="_on_load_pressed"]
+[connection signal="save_as_pressed" from="VBoxContainer/MarginContainer/GeneratorGUI" to="." method="_on_save_as_pressed"]
+[connection signal="save_pressed" from="VBoxContainer/MarginContainer/GeneratorGUI" to="." method="_on_save_pressed"]

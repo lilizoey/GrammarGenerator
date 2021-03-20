@@ -1,0 +1,88 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://VocabGUI.gd" type="Script" id=1]
+
+[node name="GeneratorGUI" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VSplitContainer"]
+margin_right = 1024.0
+margin_bottom = 294.0
+size_flags_vertical = 3
+
+[node name="RuleInput" type="TextEdit" parent="VSplitContainer/HSplitContainer"]
+margin_right = 608.0
+margin_bottom = 294.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VSplitContainer/HSplitContainer"]
+margin_left = 620.0
+margin_right = 1024.0
+margin_bottom = 294.0
+size_flags_horizontal = 3
+
+[node name="StartInput" type="TextEdit" parent="VSplitContainer/HSplitContainer/VBoxContainer"]
+margin_right = 404.0
+margin_bottom = 232.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VSplitContainer/HSplitContainer/VBoxContainer"]
+margin_top = 236.0
+margin_right = 404.0
+margin_bottom = 294.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VSplitContainer/HSplitContainer/VBoxContainer/VBoxContainer"]
+margin_right = 404.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="VSplitContainer/HSplitContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 80.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Words"
+
+[node name="SpinBox" type="SpinBox" parent="VSplitContainer/HSplitContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 84.0
+margin_right = 404.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+max_value = 250.0
+
+[node name="Generate" type="Button" parent="VSplitContainer/HSplitContainer/VBoxContainer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 404.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+text = "Generate"
+
+[node name="Output" type="RichTextLabel" parent="VSplitContainer"]
+margin_top = 306.0
+margin_right = 1024.0
+margin_bottom = 600.0
+focus_mode = 2
+size_flags_vertical = 3
+selection_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+[connection signal="pressed" from="VSplitContainer/HSplitContainer/VBoxContainer/VBoxContainer/Generate" to="." method="generate"]
+[connection signal="timeout" from="Timer" to="." method="autosave"]
