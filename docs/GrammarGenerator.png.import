@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/GrammarGenerator.png-e21c05790d74bcefdc6fbd88970dd2e0.stex"
+path="res://.import/GrammarGenerator.png-80b26b81a87e76ae60cdbb3af3fe206e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://html/GrammarGenerator.png"
-dest_files=[ "res://.import/GrammarGenerator.png-e21c05790d74bcefdc6fbd88970dd2e0.stex" ]
+source_file="res://docs/GrammarGenerator.png"
+dest_files=[ "res://.import/GrammarGenerator.png-80b26b81a87e76ae60cdbb3af3fe206e.stex" ]
 
 [params]
 

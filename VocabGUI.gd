@@ -11,6 +11,9 @@ signal save_pressed
 signal save_as_pressed
 signal load_pressed
 
+export var font_size := 16
+export var font_size_increments := 4
+
 func _ready():
 	load_file(autosave_path)
 
@@ -18,13 +21,33 @@ func create_generator() -> AST.VocabGenerator:
 	var generator := AST.VocabGenerator.new(rule_input.text)
 	return generator
 
+var generator: AST.VocabGenerator
+var output_string := ""
+var step_initialized := false
+
 func generate():
 	autosave()
-	var generator := create_generator()
-	var output_string = ""
+	step_initialized = false
+	generator = create_generator()
+	output_string = ""
 	for i in range(int(words.value)):
 		output_string += generator.apply(start_input.text, 1000, 1000) + " "
 	output.text = output_string
+
+func step():
+	autosave()
+	if not step_initialized:
+		step_initialized = true
+		generator = create_generator()
+		for i in range(int(words.value)):
+			output_string += start_input.text + " "
+		output.text = output_string
+		return
+	
+	output_string = generator.apply(output_string, 1, 1)
+	output.text = output_string
+	
+
 
 func autosave():
 	save_file(autosave_path)
@@ -64,3 +87,17 @@ func _on_save_as_pressed():
 
 func _on_load_pressed():
 	emit_signal("load_pressed")
+
+func set_font_size(size: int):
+	var font = rule_input.get_font("font")
+	font.size = size
+
+func font_size_increase():
+	font_size += font_size_increments
+	font_size = int(clamp(font_size, 4, 120))
+	set_font_size(font_size)
+
+func font_size_decrease():
+	font_size -= font_size_increments
+	font_size = int(clamp(font_size, 0, 120))
+	set_font_size(font_size)

@@ -13,6 +13,10 @@ func _input(_event):
 		_on_save_as_pressed()
 	if Input.is_action_just_pressed("load"):
 		_on_load_pressed()
+	if Input.is_action_just_pressed("font_size_increase"):
+		generator_gui.font_size_increase()
+	if Input.is_action_just_pressed("font_size_decrease"):
+		generator_gui.font_size_decrease()
 
 func _on_save_pressed():
 	if not last_file_path:
