@@ -17,34 +17,41 @@ export var font_size_increments := 4
 func _ready():
 	load_file(autosave_path)
 
-func create_generator() -> AST.VocabGenerator:
-	var generator := AST.VocabGenerator.new(rule_input.text)
-	return generator
+func create_ast() -> AST.Statement:
+	var parser := ASTParser.Statement.get_parser().parse(rule_input.text)
+	return AST.Statement.create_statement(parser.get_result())
 
-var generator: AST.VocabGenerator
+var ast: AST.Statement
 var output_string := ""
 var step_initialized := false
 
 func generate():
 	autosave()
 	step_initialized = false
-	generator = create_generator()
+	ast = create_ast()
+	if not ast:
+		output.text = "{{ERROR}}"
+		return
+	if ast is AST.EmptyStatement:
+		output.text = "{{EMPTY}}"
+		return
+		
 	output_string = ""
 	for i in range(int(words.value)):
-		output_string += generator.apply(start_input.text, 1000, 1000) + " "
+		output_string += ast.evaluate_all(start_input.text, 1000, 1000) + " "
 	output.text = output_string
 
 func step():
 	autosave()
 	if not step_initialized:
 		step_initialized = true
-		generator = create_generator()
+		ast = create_ast()
 		for i in range(int(words.value)):
 			output_string += start_input.text + " "
 		output.text = output_string
 		return
 	
-	output_string = generator.apply(output_string, 1, 1)
+	output_string = ast.evaluate_all(output_string, 1, 1)
 	output.text = output_string
 	
 

@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "AST",
 "language": "GDScript",
-"path": "res://AST.gd"
+"path": "res://NewAST.gd"
 } ]
 _global_script_class_icons={
 "AST": ""
@@ -23,6 +23,10 @@ _global_script_class_icons={
 config/name="GrammarGenerator"
 run/main_scene="res://Program.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+ASTParser="*res://Parser.gd"
 
 [input]
 

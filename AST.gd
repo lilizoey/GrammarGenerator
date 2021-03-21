@@ -1,5 +1,6 @@
-class_name AST
 extends Node
+
+
 
 
 # exp := exp·exp | symbol | (exp) | {exp} | [exp exp …]
@@ -9,36 +10,6 @@ extends Node
 # (exp) is equivalent to exp
 # {exp} is an optional expression
 # [exp exp …] is any of the exps
-
-# rule := symbol = exp
-var generator: VocabGenerator
-var prev = ""
-var cur = "S S S S S S S S S S S S S S S S S S S S S"
-var cur_rule_i = 0
-
-var rule_file: String = """
-S := L{L{L{{L}}}}
-L := [V1 C1V1 C2V2 V1 C1V1 C2V2 V1 C1V1 C2V2 C3V3]{{n}}
-V1 := [V4 V4 V4 V7]
-V2 := [V5 V5 V5 V8]
-V3 := [V6 V6 V6 V9]
-V4 := [a e i o u]
-V5 := [a o u]
-V6 := [a o]
-V7 := [aa ii uu ee oo ou]
-V8 := [aa uu oo ou]
-V9 := [aa oo]
-C1 := [k s t n h m r g d z b p]
-C2 := [y ky sh ch ny hy my ry gy j by py]
-C3 := [w]
-si := shi
-ti := chi
-tu := tsu
-hu := fu
-zi := ji
-di := ji
-du := dzu
-"""
 
 class Exp:
 	var remainder := ""
@@ -439,3 +410,4 @@ class TracingGenerator:
 		for d in derivation:
 			acc += d + sep
 		return acc.strip_edges()
+
