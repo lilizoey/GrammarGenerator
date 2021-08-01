@@ -209,7 +209,7 @@ class ExprOrList extends Expr:
 		return acc.substr(0, acc.length() - 1) + "]"
 	
 	func generate() -> String:
-		var r := int(rand_range(0, get_total()))
+		var r := int(rand_range(1, get_total() + 1))
 		var acc := 0
 		var prev = exprs[0]
 		for expr in exprs:
@@ -218,7 +218,7 @@ class ExprOrList extends Expr:
 			acc += expr.get_amount()
 			prev = expr
 		
-		return prev.generate()
+		return exprs[exprs.size() - 1].generate()
 	
 	func get_total() -> int:
 		var acc = 0
